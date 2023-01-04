@@ -4,9 +4,9 @@ This program is designed to extract data from an API endpoint and save it to a l
 
 ## Prerequisites
 * PowerShell 5.1 or later
-* The execution policy in PowerShell has to unset from `Restricted`, for example, `Set-ExecutionPolicy -ExecutionPolicy Unsigned -Scope CurrentUser`. To determine the current execution policy, run `get-executionpolicy` in terminal. 
+* Determine the script execution policy on your machine by executing `Get-ExecutionPolicy` in terminal. The execution policy in PowerShell has to be changed from `Restricted` to enable you run PowerShell scripts. Run `Set-ExecutionPolicy -ExecutionPolicy Unsigned -Scope CurrentUser` on terminal.  
 * The script requires the `Invoke-RestMethod `cmdlet to retrieve data from the API endpoint, the `Get-FileHash` cmdlet to calculate the hash values of the data and the `Compare-Object` cmdlet to return the changed data. These cmdlets are part of the PowerShell core and should be available in any modern version of PowerShell.
-* No authentication method is required to access API resource.
+* Authentication is not required to access the API resource.
 
 ## Inputs
 * `$algorithm`: A string that specifies the hashing algorithm to use for calculating the hash values. The following algorithms are supported: MD5, SHA1, SHA256, SHA384, SHA512. The program uses `SHA256`. 
