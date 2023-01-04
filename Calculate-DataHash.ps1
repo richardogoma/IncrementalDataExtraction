@@ -1,12 +1,14 @@
-﻿Param(
+﻿using namespace System.Net
+
+Param(
    [string]$DataSource,
    [string]$Algorithm, 
    [string]$Mode
 )
 
 # Resolve Proxy Authentication error when making HTTP requests using PowerShell
-# $browser = New-Object WebClient 
-# $browser.Proxy.Credentials = [CredentialCache]::DefaultNetworkCredentials 
+$browser = New-Object WebClient 
+$browser.Proxy.Credentials = [CredentialCache]::DefaultNetworkCredentials 
 
 # ------------------------------------------------
 function Get-DataHash {
