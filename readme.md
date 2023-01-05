@@ -2,14 +2,16 @@
 ## Purpose
 This program is designed to extract data from an API endpoint and save it to a local file in CSV format. If the local file already exists, the program will compare the hash values of the API resource and the local file to determine if there are any changes in the data. If there are changes, the program will pre-process and update the local file with the new data. The data is produced from the CoinDesk Bitcoin Price Index API in real-time.
 
+> A cryptographic hash function has the property that it is infeasible to find two different files with the same hash value. Hash functions are commonly used with digital signatures and for data integrity. **A hash value is a unique value that corresponds to the content of the file (or stream).** Metadata such as the file name, extension, timestamps, permissions, etc. have no influence on the hash. However, changing even a single character in the contents of a file (or stream) changes the hash value of the file (or stream).
+
 ## Prerequisites
-* PowerShell 5.1 or later
+* PowerShell 7 (also, pwsh.exe).
 * Determine the script execution policy on your machine by executing `Get-ExecutionPolicy` in terminal. The execution policy in PowerShell has to be changed from `Restricted` to enable you run PowerShell scripts. Run `Set-ExecutionPolicy -ExecutionPolicy Unsigned -Scope CurrentUser` on terminal.  
 * The script requires the `Invoke-RestMethod `cmdlet to retrieve data from the API endpoint, the `Get-FileHash` cmdlet to calculate the hash values of the data and the `Compare-Object` cmdlet to return the changed data. These cmdlets are part of the PowerShell core and should be available in any modern version of PowerShell.
 * Authentication is not required to access the API resource.
 
 ## Inputs
-* `$algorithm`: A string that specifies the hashing algorithm to use for calculating the hash values. The following algorithms are supported: MD5, SHA1, SHA256, SHA384, SHA512. The program uses `SHA256`. 
+* `$algorithm`: A string that specifies the cryptographic hashing function to use for computing the hash value of the contents of the specified file or stream. The following algorithms are supported: MD5, SHA1, SHA256, SHA384, SHA512. This program uses `SHA256` by default. 
 * `cwd`: A string value representing the current working directory. This is used to locate the script file, `Calculate-DataHash.ps1`, that contains the `Get-DataHash` function. The batch program, `Executor.bat`, defaults to the current working directory; this should be modified to where the program was unbundled. 
 
 ## Outputs
@@ -51,7 +53,9 @@ The data is structured in columnar format and can be easily consumed. The data s
 
 ## References
 * [CoinDesk Bitcoin Price Index API](https://api.coindesk.com/v1/bpi/currentprice.json)
+* [SHA-256 Cryptographic Hash Algorithm](https://www.movable-type.co.uk/scripts/sha256.html#src-code)
 * [MD5 vs SHA-1 vs SHA-2 - Which is the Most Secure Encryption Hash and How to Check Them](https://www.freecodecamp.org/news/md5-vs-sha-1-vs-sha-2-which-is-the-most-secure-encryption-hash-and-how-to-check-them/)
+* [The `Get-FileHash` cmdlet](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-7.3)
 * [about_Script_Blocks](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_script_blocks?view=powershell-7.3)
 * [How To Get The Value Of Header In CSV](https://stackoverflow.com/questions/25764366/how-to-get-the-value-of-header-in-csv)
 * [Passing an array of bytes to system.IO.MemoryStream](https://scriptingetc.wordpress.com/2019/05/22/passing-an-array-of-bytes-to-system-io-memorystream/)
